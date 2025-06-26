@@ -40,7 +40,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/scss/form-style.scss";
+@use "@/scss/form-style.scss" as *;
+
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
