@@ -27,7 +27,14 @@
         </b-form-invalid-feedback>
       </b-form-group>
 
-      <b-button type="submit" variant="primary" class="w-100">Login</b-button>
+      <b-button 
+        type="submit" 
+        variant="primary" 
+        class="w-100"
+        :disabled="v$.$invalid || state.isLoading"
+      >
+        {{ state.isLoading ? 'Logging in...' : 'Login' }}
+      </b-button>
 
       <b-alert
         variant="danger"
@@ -40,7 +47,7 @@
       </b-alert>
 
       <div class="mt-2">
-        Don’t have an account?
+        Don't have an account?
         <router-link to="/register">Register here</router-link>
       </div>
     </b-form>
@@ -48,17 +55,20 @@
 </template>
 
 <script>
-import { reactive } from 'vue';
+import { reactive, getCurrentInstance } from 'vue';
 import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
 
 export default {
   name: 'LoginPage',
   setup() {
+    const internalInstance = getCurrentInstance();
+    
     const state = reactive({
       username: '',
       password: '',
       submitError: null,
+      isLoading: false,
     });
 
     const rules = {
@@ -76,19 +86,73 @@ export default {
       const valid = await v$.value.$validate();
       if (!valid) return;
 
+      state.isLoading = true;
+      state.submitError = null;
+
       try {
-        await window.axios.post('/login', {
+        console.log('Attempting login with:', { username: state.username });
+        
+        // תיקון: שימוש נכון ב-axios עם server domain
+        const store = internalInstance.appContext.config.globalProperties.store;
+        const axios = internalInstance.appContext.config.globalProperties.axios;
+        
+        const response = await axios.post(store.server_domain + '/Login', {
           username: state.username,
           password: state.password,
         });
-        window.store.login(state.username);
-        window.router.push('/main');
+
+        console.log('Login response:', response.data);
+
+        if (response.status === 200) {
+          // תיקון: שימוש נכון ב-store
+          store.login(state.username);
+          
+          console.log('Store updated, username:', store.username);
+          
+          // הודעת הצלחה
+          alert('Login successful!');
+          
+          // תיקון: שימוש נכון ב-router
+          const router = internalInstance.appContext.config.globalProperties.$router;
+          router.push('/');
+        }
       } catch (err) {
-        state.submitError = err.response?.data?.message || 'Unexpected error.';
+        console.error('Login error:', err);
+        
+        if (err.response) {
+          state.submitError = err.response.data?.message || 'Login failed';
+        } else {
+          state.submitError = 'Network error. Please try again.';
+        }
+      } finally {
+        state.isLoading = false;
       }
     };
 
-    return { state, v$, login, getValidationState };
+    return { 
+      state, 
+      v$, 
+      login, 
+      getValidationState 
+    };
   },
 };
 </script>
+
+<style scoped>
+.container {
+  background: #f8f9fa;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+.btn-primary {
+  background: linear-gradient(45deg, #007bff, #0056b3);
+  border: none;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(45deg, #0056b3, #004085);
+}
+</style>

@@ -14,14 +14,13 @@ import 'bootstrap-vue-3/dist/bootstrap-vue-3.css';
 import { BContainer, BRow, BCol } from 'bootstrap-vue-3';
 import Vuelidate from '@vuelidate/core';
 
-
 // Router setup
 const router = createRouter({
   history: createWebHistory(),
   routes
 });
 
-// Shared store
+// Shared store - תיקון וחיבור לסטור החיצוני
 const store = reactive({
   username: localStorage.getItem('username'),
   server_domain: 'http://localhost:3000',
@@ -37,8 +36,15 @@ const store = reactive({
   },
 });
 
+// Axios configuration - עם credentials
+axios.defaults.baseURL = store.server_domain;
+axios.defaults.withCredentials = true; // מאפשר cookies
+
 // Axios interceptors
-axios.interceptors.request.use((config) => config, (error) => Promise.reject(error));
+axios.interceptors.request.use((config) => {
+  config.withCredentials = true;
+  return config;
+}, (error) => Promise.reject(error));
 axios.interceptors.response.use((response) => response, (error) => Promise.reject(error));
 
 // Create app
@@ -55,8 +61,24 @@ app.component('BContainer', BContainer);
 app.component('BRow', BRow);
 app.component('BCol', BCol);
 
-// Global store
+// Global store and utilities
 app.config.globalProperties.store = store;
+
+// Toast function for notifications
+app.config.globalProperties.toast = (title, message, variant = 'success') => {
+  // Simple console log for now - יכול להיות משופר עם toast library
+  console.log(`${variant.toUpperCase()}: ${title} - ${message}`);
+  
+  // אפשר להוסיף כאן Bootstrap toast או library אחר
+  // לעת עתה נשתמש ב-alert פשוט
+  if (variant === 'success') {
+    alert(`✅ ${title}: ${message}`);
+  } else if (variant === 'danger' || variant === 'error') {
+    alert(`❌ ${title}: ${message}`);
+  } else {
+    alert(`ℹ️ ${title}: ${message}`);
+  }
+};
 
 // Mount app
 app.mount('#app');
