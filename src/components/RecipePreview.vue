@@ -1,43 +1,3 @@
-<!-- <template>
-  <div class="card h-100">
-    <img
-      v-if="recipe.image"
-      :src="recipe.image"
-      class="card-img-top recipe-image"
-      alt="Recipe image"
-    />
-    <div class="card-body text-center">
-      <h5 class="card-title">{{ recipe.title }}</h5>
-      <p class="card-text">{{ recipe.readyInMinutes }} minutes</p>
-      <p class="card-text">{{ recipe.aggregateLikes }} likes</p>
-    </div>
-  </div>
-</template>
-
-<script>
-export default {
-  name: "RecipePreview",
-  props: {
-    recipe: {
-      type: Object,
-      required: true
-    }
-  }
-}
-</script>
-
-<style scoped>
-.recipe-image {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-</style>
-
- -->
-
-
-
 <template>
   <div class="card h-100 recipe-card">
     <!-- תמונה עם overlay לחיצה -->
@@ -285,7 +245,7 @@ export default {
 }
 
 .info-item i {
-  color: #007bff;
+  color: #7db67d;
 }
 
 .status-indicators {
@@ -300,16 +260,19 @@ export default {
 
 .action-buttons {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   justify-content: space-between;
+  margin-top: 0.5rem;
 }
 
 .action-buttons .btn {
-  flex: 1;
+  flex: 1 1 calc(50% - 5px); /* שני כפתורים בשורה, לא חורגים */
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 5px;
+  white-space: nowrap; /* לא לשבור שורה בתוך הטקסט */
 }
 
 .card-title {
@@ -319,7 +282,7 @@ export default {
 }
 
 .card-title:hover {
-  color: #007bff;
+  color: #7db67d;
   text-decoration: underline;
 }
 

@@ -18,6 +18,10 @@
           </div>
           <div v-else-if="!v$.username.alpha">Username must contain only letters.</div>
         </b-form-invalid-feedback>
+        <!-- Server-side username error -->
+        <b-form-invalid-feedback v-if="state.fieldErrors.username" :state="false">
+          {{ state.fieldErrors.username }}
+        </b-form-invalid-feedback>
       </b-form-group>
 
       <!-- First Name -->
@@ -135,16 +139,19 @@
         {{ state.isLoading ? 'Creating Account...' : 'Register' }}
       </b-button>
 
+      <!-- General error alert -->
       <b-alert
         variant="danger"
         class="mt-3"
         dismissible
         v-if="state.submitError"
         show
+        @dismissed="state.submitError = null"
       >
-        Registration failed: {{ state.submitError }}
+        {{ state.submitError }}
       </b-alert>
 
+      <!-- Success alert -->
       <b-alert
         variant="success"
         class="mt-3"
@@ -188,6 +195,9 @@ export default {
       submitError: null,
       successMessage: null,
       isLoading: false,
+      fieldErrors: {
+        username: null
+      }
     });
 
     const rules = {
@@ -219,17 +229,19 @@ export default {
     const getValidationState = (field) => {
       if (!field.$dirty) return null;
       
+      // Check for server-side errors on username field
+      if (field === v$.value.username && state.fieldErrors.username) {
+        return false;
+      }
+      
       // Special handling for confirm password
       if (field === v$.value.confirmedPassword) {
-        // Check if passwords actually match
         const passwordsMatch = state.password === state.confirmedPassword;
         
-        // If field is dirty and passwords match and not empty, return true
         if (field.$dirty && passwordsMatch && state.confirmedPassword.length > 0) {
           return true;
         }
         
-        // If field is dirty but passwords don't match or field is empty, return false
         if (field.$dirty && (!passwordsMatch || state.confirmedPassword.length === 0)) {
           return false;
         }
@@ -251,22 +263,94 @@ export default {
       v$.value.confirmedPassword.$touch();
     };
 
+    const clearErrors = () => {
+      state.submitError = null;
+      state.fieldErrors.username = null;
+    };
+
+    const handleServerError = (error) => {
+      const message = error.response?.data?.message || 'Registration failed';
+      
+      // Handle specific server-side validation errors
+      switch (message) {
+        case "Username taken":
+          state.fieldErrors.username = "This username is already taken. Please choose another.";
+          break;
+        case "Username must be 3-8 characters long":
+        case "Username must contain letters only":
+          state.fieldErrors.username = message;
+          break;
+        case "Password must be 5-10 characters long":
+        case "Password must contain at least one number":
+        case "Password must contain at least one special character":
+          state.submitError = message;
+          break;
+        case "All fields are required":
+          state.submitError = "Please fill in all required fields.";
+          break;
+        default:
+          state.submitError = message;
+      }
+    };
+
     const register = async () => {
       console.log('Register clicked!');
-      alert('ההרשמה בוצעה בהצלחה! המשך להתחברות');
       
-      // Temporarily disable validation to test
-      // const valid = await v$.value.$validate();
-      // console.log('Validation result:', valid);
+      // Clear previous errors
+      clearErrors();
       
-      // if (!valid) {
-      //   console.log('Form validation failed');
-      //   return;
-      // }
+      // Simple validation - bypass Vuelidate for now
+      if (!state.username || state.username.length < 3 || state.username.length > 8) {
+        state.submitError = "Username must be 3-8 characters long.";
+        return;
+      }
+      
+      if (!/^[a-zA-Z]+$/.test(state.username)) {
+        state.submitError = "Username must contain only letters.";
+        return;
+      }
+      
+      if (!state.firstname) {
+        state.submitError = "First name is required.";
+        return;
+      }
+      
+      if (!state.lastname) {
+        state.submitError = "Last name is required.";
+        return;
+      }
+      
+      if (!state.email || !/\S+@\S+\.\S+/.test(state.email)) {
+        state.submitError = "Please enter a valid email address.";
+        return;
+      }
+      
+      if (!state.country || state.country === 'Select a country') {
+        state.submitError = "Please select a country.";
+        return;
+      }
+      
+      if (!state.password || state.password.length < 5 || state.password.length > 10) {
+        state.submitError = "Password must be 5-10 characters long.";
+        return;
+      }
+      
+      if (!/\d/.test(state.password)) {
+        state.submitError = "Password must contain at least one number.";
+        return;
+      }
+      
+      if (!/[!@#$%^&*(),.?":{}|<>]/.test(state.password)) {
+        state.submitError = "Password must contain at least one special character.";
+        return;
+      }
+      
+      if (state.password !== state.confirmedPassword) {
+        state.submitError = "Passwords do not match.";
+        return;
+      }
 
       state.isLoading = true;
-      state.submitError = null;
-      state.successMessage = null;
 
       try {
         console.log('Attempting registration with:', {
@@ -293,24 +377,31 @@ export default {
         console.log('Registration response:', response.data);
 
         if (response.status === 201) {
-          state.successMessage = 'Registration successful! Redirecting to login...';
+          state.successMessage = 'ההרשמה בוצעה בהצלחה! מעביר אותך להתחברות...';
           
           // Redirect to login after 2 seconds
           setTimeout(() => {
             router.push('/login');
-          }, 500);
+          }, 2000);
         }
       } catch (err) {
         console.error('Registration error:', err);
-        
-        if (err.response) {
-          state.submitError = err.response.data?.message || 'Registration failed';
-        } else {
-          state.submitError = 'Network error. Please try again.';
-        }
+        handleServerError(err);
       } finally {
         state.isLoading = false;
       }
+    };
+
+    // Clear field errors when user starts typing
+    const clearFieldError = (fieldName) => {
+      if (state.fieldErrors[fieldName]) {
+        state.fieldErrors[fieldName] = null;
+      }
+    };
+
+    // Watch for changes in username to clear server errors
+    const watchUsername = () => {
+      clearFieldError('username');
     };
 
     return {
@@ -321,6 +412,7 @@ export default {
       getValidationState,
       onPasswordChange,
       onConfirmPasswordChange,
+      watchUsername,
     };
   },
 };
@@ -346,5 +438,10 @@ export default {
 .form-control:focus {
   border-color: #28a745;
   box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+/* Style for server-side error feedback */
+.invalid-feedback[state="false"] {
+  display: block;
 }
 </style>
