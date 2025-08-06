@@ -160,8 +160,9 @@ export default {
 .refresh-btn {
   padding: 12px 24px;
   font-size: 16px;
+  color:#7db67d;
   border-radius: 25px;
-  border: 2px solid #4e9292;
+  border: 2px solid #7db67d;
   transition: all 0.3s ease;
   font-weight: 600;
   font-family: 'Manjari', sans-serif;
@@ -170,6 +171,7 @@ export default {
 .refresh-btn:hover:not(:disabled) {
   background: #7db67d;
   color: white;
+  border: 2px solid #7db67d;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(78, 146, 146, 0.3);
 }

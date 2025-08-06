@@ -160,9 +160,11 @@ export default {
 </script>
 
 <style scoped>
+/* הוספת פונט לכל האלמנטים */
 .recipe-card {
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   cursor: pointer;
+  font-family: 'Manjari', sans-serif;
 }
 
 .recipe-card:hover {
@@ -200,6 +202,7 @@ export default {
   align-items: center;
   opacity: 0;
   transition: opacity 0.3s ease;
+  font-family: 'Manjari', sans-serif;
 }
 
 .image-container:hover .image-overlay {
@@ -229,6 +232,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: 'Manjari', sans-serif;
 }
 
 .recipe-info {
@@ -236,12 +240,14 @@ export default {
   justify-content: space-between;
   font-size: 0.9rem;
   color: #666;
+  font-family: 'Manjari', sans-serif;
 }
 
 .info-item {
   display: flex;
   align-items: center;
   gap: 5px;
+  font-family: 'Manjari', sans-serif;
 }
 
 .info-item i {
@@ -256,6 +262,7 @@ export default {
 
 .status-indicators .badge {
   font-size: 0.75rem;
+  font-family: 'Manjari', sans-serif;
 }
 
 .action-buttons {
@@ -267,18 +274,80 @@ export default {
 }
 
 .action-buttons .btn {
-  flex: 1 1 calc(50% - 5px); /* שני כפתורים בשורה, לא חורגים */
+  flex: 1 1 calc(50% - 5px);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 5px;
-  white-space: nowrap; /* לא לשבור שורה בתוך הטקסט */
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  font-family: 'Manjari', sans-serif;
+}
+
+/* כפתור View - רקע ירוק בהיר עם כתב לבן */
+.action-buttons .btn-primary {
+  background-color: #a3c7a3;
+  border-color: #a3c7a3;
+  color: white;
+}
+
+.action-buttons .btn-primary:hover {
+  background-color: #7db67d;
+  border-color: #7db67d;
+  color: white;
+}
+
+.action-buttons .btn-primary:focus,
+.action-buttons .btn-primary:active {
+  background-color: #7db67d;
+  border-color: #7db67d;
+  color: white;
+  box-shadow: 0 0 0 0.2rem rgba(163, 199, 163, 0.25);
+}
+
+/* כפתור Favorite - לא פעיל (מצב רגיל) */
+.action-buttons .btn-outline-danger {
+  background-color: transparent;
+  border-color: #dc3545;
+  color: #dc3545;
+  transition: all 0.3s ease;
+}
+
+.action-buttons .btn-outline-danger:hover {
+  background-color: rgba(220, 53, 69, 0.1);
+  border-color: #dc3545;
+  color: #dc3545;
+  box-shadow: 0 0 8px rgba(220, 53, 69, 0.3);
+}
+
+/* כפתור Favorite - פעיל (אחרי לחיצה) */
+.action-buttons .btn-danger {
+  background-color: #ff6b6b; /* אדום בהיר ונעים */
+  border-color: #ff6b6b;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.action-buttons .btn-danger:hover {
+  background-color: #ff5252; /* אדום קצת יותר כהה בhover */
+  border-color: #ff5252;
+  color: white;
+  box-shadow: 0 0 8px rgba(255, 107, 107, 0.4);
+}
+
+.action-buttons .btn-danger:focus,
+.action-buttons .btn-danger:active {
+  background-color: #e53e3e;
+  border-color: #e53e3e;
+  color: white;
+  box-shadow: 0 0 0 0.2rem rgba(255, 107, 107, 0.25);
 }
 
 .card-title {
   font-size: 1.1rem;
   line-height: 1.3;
   margin-bottom: 0.5rem;
+  font-family: 'Manjari', sans-serif;
 }
 
 .card-title:hover {
@@ -289,17 +358,22 @@ export default {
 /* Bootstrap badge overrides */
 .badge-success {
   background-color: #28a745;
+  font-family: 'Manjari', sans-serif;
 }
 
 .badge-info {
   background-color: #17a2b8;
+  font-family: 'Manjari', sans-serif;
 }
 
 .badge-secondary {
   background-color: #6c757d;
+  font-family: 'Manjari', sans-serif;
 }
 
 .badge-danger {
+  color: #ffffff;
   background-color: #dc3545;
+  font-family: 'Manjari', sans-serif;
 }
 </style>

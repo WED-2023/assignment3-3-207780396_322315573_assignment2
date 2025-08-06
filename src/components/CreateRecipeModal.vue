@@ -457,16 +457,11 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(135deg, #28a745, #20c997);
+  background: linear-gradient(135deg, #7db67d, #a3c7a3);
   color: white;
   padding: 1rem 1.5rem;
   border-radius: 0.375rem 0.375rem 0 0;
   margin: -1rem -1.5rem 1rem -1.5rem;
-}
-
-.modal-title {
-  margin: 0;
-  font-weight: 600;
 }
 
 .modal-title i {
@@ -493,6 +488,47 @@ export default {
   flex-wrap: wrap;
 }
 
+/* עיצוב הצ'קבוקסים - תיקון */
+.dietary-options input[type="checkbox"] {
+  accent-color: #a3c7a3 !important;
+  width: 18px;
+  height: 18px;
+  
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  
+  background-color: white;
+  border: 2px solid #a3c7a3;
+  border-radius: 3px;
+  position: relative;
+  cursor: pointer;
+}
+
+.dietary-options input[type="checkbox"]:checked {
+  background-color: #a3c7a3 !important;
+  border-color: #a3c7a3 !important;
+}
+
+.dietary-options input[type="checkbox"]:checked::after {
+  content: "✓";
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  position: absolute;
+  left: 2px;
+  top: -2px;
+}
+
+.dietary-options label {
+  font-family: 'Manjari', sans-serif !important;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
 .ingredients-section {
   background: #f8f9fa;
   padding: 1rem;
@@ -500,20 +536,223 @@ export default {
   border: 2px dashed #dee2e6;
 }
 
+/* עדכון עיצוב ה-ingredient-item */
 .ingredient-item {
   background: white;
-  padding: 0.5rem;
+  padding: 0.75rem;
   border-radius: 6px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   animation: slideIn 0.3s ease-out;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+/* כפתור מחיקת מרכיב */
+.ingredient-item .btn-remove,
+.ingredient-item .btn-outline-danger,
+.ingredient-item .btn-danger.btn-sm,
+.ingredient-item button[class*="remove"],
+.ingredient-item button[class*="delete"],
+.ingredient-item .btn-sm {
+  background-color: white !important;
+  border: 2px solid #e74c3c !important;
+  color: #e74c3c !important;
+  font-size: 16px !important;
+  font-weight: bold !important;
+  width: 24px !important;
+  height: 24px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  margin-left: 10px !important;
+  margin-right: 5px !important;
+  flex-shrink: 0 !important;
+  transition: all 0.3s ease !important;
+  font-family: 'Arial', sans-serif !important;
+  line-height: 1 !important;
+  cursor: pointer !important;
+  /* הסרתי את text-indent */
+}
+
+/* הוספת X ישירות לתוכן הכפתור */
+.ingredient-item .btn-remove,
+.ingredient-item .btn-outline-danger,
+.ingredient-item .btn-danger.btn-sm,
+.ingredient-item button[class*="remove"],
+.ingredient-item button[class*="delete"],
+.ingredient-item .btn-sm {
+  /* הוספת ה-X ישירות */
+  text-align: center !important;
+  vertical-align: middle !important;
+}
+
+/* אם הכפתור ריק, נוסיף X עם ::before */
+.ingredient-item .btn-remove:empty::before,
+.ingredient-item .btn-outline-danger:empty::before,
+.ingredient-item .btn-danger.btn-sm:empty::before,
+.ingredient-item button[class*="remove"]:empty::before,
+.ingredient-item button[class*="delete"]:empty::before,
+.ingredient-item .btn-sm:empty::before {
+  content: "×" !important;
+  font-size: 16px !important;
+  line-height: 1 !important;
+  color: inherit !important;
+}
+
+/* אם הכפתור לא ריק, נחליף את התוכן */
+.ingredient-item .btn-remove:not(:empty),
+.ingredient-item .btn-outline-danger:not(:empty),
+.ingredient-item .btn-danger.btn-sm:not(:empty),
+.ingredient-item button[class*="remove"]:not(:empty),
+.ingredient-item button[class*="delete"]:not(:empty),
+.ingredient-item .btn-sm:not(:empty) {
+  font-size: 0 !important; /* מסתיר טקסט קיים */
+}
+
+.ingredient-item .btn-remove:not(:empty)::before,
+.ingredient-item .btn-outline-danger:not(:empty)::before,
+.ingredient-item .btn-danger.btn-sm:not(:empty)::before,
+.ingredient-item button[class*="remove"]:not(:empty)::before,
+.ingredient-item button[class*="delete"]:not(:empty)::before,
+.ingredient-item .btn-sm:not(:empty)::before {
+  content: "×" !important;
+  font-size: 16px !important;
+  line-height: 1 !important;
+  color: inherit !important;
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+/* אפקט hover */
+.ingredient-item .btn-remove:hover,
+.ingredient-item .btn-outline-danger:hover,
+.ingredient-item .btn-danger.btn-sm:hover,
+.ingredient-item button[class*="remove"]:hover,
+.ingredient-item button[class*="delete"]:hover,
+.ingredient-item .btn-sm:hover {
+  background-color: #e74c3c !important;
+  border-color: #e74c3c !important;
+  color: white !important;
+  transform: scale(1.05) !important;
+  box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3) !important;
+}
+
+.ingredient-item .btn-remove:hover::before,
+.ingredient-item .btn-outline-danger:hover::before,
+.ingredient-item .btn-danger.btn-sm:hover::before,
+.ingredient-item button[class*="remove"]:hover::before,
+.ingredient-item button[class*="delete"]:hover::before,
+.ingredient-item .btn-sm:hover::before {
+  color: white !important;
+}
+
+/* עדכון עיצוב ה-ingredient-item כדי למקם הכל טוב */
+.ingredient-item {
+  background: white;
+  padding: 0.75rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  animation: slideIn 0.3s ease-out;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+  padding-right: 35px !important;   /* הוספת מקום לכפתור */
+}
+
+/* כפתור Add Ingredient - תיקון */
+.btn-outline-primary,
+.btn[class*="outline"]:not(.btn-outline-danger) {
+  color: #a3c7a3 !important;
+  border-color: #a3c7a3 !important;
+  background-color: transparent !important;
+  font-family: 'Manjari', sans-serif !important;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover,
+.btn[class*="outline"]:not(.btn-outline-danger):hover {
+  background-color: #a3c7a3 !important;
+  border-color: #a3c7a3 !important;
+  color: white !important;
+}
+
+.btn-outline-primary:focus,
+.btn-outline-primary:active {
+  background-color: #7db67d !important;
+  border-color: #7db67d !important;
+  color: white !important;
+  box-shadow: 0 0 0 0.2rem rgba(163, 199, 163, 0.25) !important;
+}
+
+/* כפתור Create Recipe - תיקון */
+.modal-footer .btn-success,
+.btn-success,
+button[type="submit"],
+.btn-primary {
+  background-color: #a3c7a3 !important;
+  border-color: #a3c7a3 !important;
+  color: white !important;
+  font-family: 'Manjari', sans-serif !important;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.modal-footer .btn-success:hover,
+.btn-success:hover,
+button[type="submit"]:hover,
+.btn-primary:hover {
+  background-color: #7db67d !important;
+  border-color: #7db67d !important;
+  color: white !important;
+}
+
+.modal-footer .btn-success:focus,
+.modal-footer .btn-success:active,
+.btn-success:focus,
+.btn-success:active {
+  background-color: #7db67d !important;
+  border-color: #7db67d !important;
+  color: white !important;
+  box-shadow: 0 0 0 0.2rem rgba(163, 199, 163, 0.25) !important;
+}
+
+/* כפתור Cancel */
+.btn-secondary {
+  font-family: 'Manjari', sans-serif !important;
+}
+
+/* עיצוב כל הטקסט הרגיל */
+.recipe-form,
+.recipe-form label,
+.recipe-form input,
+.recipe-form textarea,
+.recipe-form select,
+.recipe-form .form-text,
+label,
+input,
+textarea,
+select {
+  font-family: 'Manjari', sans-serif !important;
 }
 
 /* עיצוב לכל שדות הקלט כשהם בפוקוס */
 .recipe-form input:focus,
 .recipe-form textarea:focus,
-.recipe-form select:focus {
-  border-color: rgba(40, 167, 69, 0.5); /* ירוק בהיר */
-  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25); /* היילייט */
+.recipe-form select:focus,
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: rgba(163, 199, 163, 0.5) !important;
+  box-shadow: 0 0 0 0.2rem rgba(163, 199, 163, 0.25) !important;
   outline: none;
   transition: box-shadow 0.2s ease, border-color 0.2s ease;
 }
@@ -545,6 +784,12 @@ export default {
   border-top: 1px solid #dee2e6;
   padding: 1rem 0;
   margin-top: 1rem;
+}
+
+/* כותרות משניות */
+h4, h5, h6 {
+  font-family: 'Manjari', sans-serif !important;
+  color: #333;
 }
 
 /* Responsive Design */

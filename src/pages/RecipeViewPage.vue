@@ -3,7 +3,6 @@
     <!-- Loading State -->
     <div v-if="loading" class="loading-container">
       <div class="spinner-border" role="status">
-        <span class="sr-only">Loading...</span>
       </div>
       <p class="mt-3">Loading recipe...</p>
     </div>

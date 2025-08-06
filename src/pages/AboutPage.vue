@@ -1,14 +1,5 @@
 <template>
   <div class="container mt-4">
-    <!-- Hero Section -->
-    <div class="hero-section text-center mb-5">
-      <div class="hero-content">
-        <i class="fas fa-utensils hero-icon mb-3"></i>
-        <h1 class="display-4 mb-3">Vue Recipes</h1>
-        <p class="lead">האתר המושלם לאוהבי הבישול והמטבח</p>
-      </div>
-    </div>
-
     <div class="row">
       <!-- About Content -->
       <div class="col-lg-8 mx-auto">
@@ -17,15 +8,12 @@
           <div class="card-body">
             <h2 class="card-title text-primary mb-3">
               <i class="fas fa-info-circle me-2"></i>
-              אודות האתר
+              About the Site
             </h2>
             <p class="card-text">
-              ברוכים הבאים לאתר Vue Recipes - הבית הדיגיטלי שלכם לכל מה שקשור לבישול ומתכונים!
-              האתר שלנו נועד לעזור לכם לגלות, לשתף ולנהל את המתכונים הטובים ביותר.
-            </p>
-            <p class="card-text">
-              כאן תוכלו לחפש בין אלפי מתכונים, לשמור את המועדפים עליכם, 
-              לשתף את המתכונים המשפחתיים שלכם ולגלות מתכונים חדשים מכל העולם.
+              your digital home for everything related to cooking and recipes!
+              Our site is here to help you discover, share, and manage your best recipes.
+              Here, you can search through thousands of recipes, save your favorites, share your family recipes, and explore new dishes from around the world.
             </p>
           </div>
         </div>
@@ -35,42 +23,42 @@
           <div class="card-body">
             <h3 class="card-title text-success mb-3">
               <i class="fas fa-star me-2"></i>
-              מה האתר מציע?
+              What does the site offer?
             </h3>
             <div class="row">
               <div class="col-md-6">
                 <div class="feature-item mb-3">
                   <i class="fas fa-search text-primary me-2"></i>
-                  <strong>חיפוש מתכונים</strong>
-                  <p class="mb-0 text-muted">חפש מבין אלפי מתכונים לפי רכיבים, סוג מזון ועוד</p>
+                  <strong>Recipe Search</strong>
+                  <p class="mb-0 text-muted">Search among thousands of recipes by ingredients, food type, and more</p>
                 </div>
                 <div class="feature-item mb-3">
                   <i class="fas fa-heart text-danger me-2"></i>
-                  <strong>מתכונים מועדפים</strong>
-                  <p class="mb-0 text-muted">שמור את המתכונים שאהבת לגישה מהירה</p>
+                  <strong>Favorite Recipes</strong>
+                  <p class="mb-0 text-muted">Save the recipes you love for quick access</p>
                 </div>
                 <div class="feature-item mb-3">
                   <i class="fas fa-plus-circle text-success me-2"></i>
-                  <strong>יצירת מתכונים</strong>
-                  <p class="mb-0 text-muted">הוסף את המתכונים הייחודיים שלך</p>
+                  <strong>Create Recipes</strong>
+                  <p class="mb-0 text-muted">Add your own unique recipes</p>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="feature-item mb-3">
                   <i class="fas fa-users text-info me-2"></i>
-                  <strong>מתכונים משפחתיים</strong>
-                  <p class="mb-0 text-muted">שמור את המתכונים המסורתיים של המשפחה</p>
+                  <strong>Family Recipes</strong>
+                  <p class="mb-0 text-muted">Save your family's traditional recipes</p>
                 </div>
                 <div class="feature-item mb-3">
                   <i class="fas fa-leaf text-success me-2"></i>
-                  <strong>מתכונים מותאמים</strong>
-                  <p class="mb-0 text-muted">מתכונים צמחוניים, טבעוניים וללא גלוטן</p>
+                  <strong>Personalized Recipes</strong>
+                  <p class="mb-0 text-muted">Vegetarian, vegan, gluten-free recipes</p>
                 </div>
-                <div class="feature-item mb-3">
+                <!-- <div class="feature-item mb-3">
                   <i class="fas fa-mobile-alt text-warning me-2"></i>
                   <strong>גישה ממכשירים ניידים</strong>
                   <p class="mb-0 text-muted">האתר מותאם לכל המכשירים והמסכים</p>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
@@ -81,7 +69,7 @@
           <div class="card-body">
             <h3 class="card-title text-info mb-3">
               <i class="fas fa-users me-2"></i>
-              צוות הפיתוח
+              Development Team
             </h3>
             <div class="row">
               <div class="col-md-6 mb-4">
@@ -89,7 +77,7 @@
                   <div class="member-avatar mb-3">
                     <i class="fas fa-user-circle text-primary"></i>
                   </div>
-                  <h5 class="text-primary">יובל ורד</h5>
+                  <h5 class="text-primary">Yuval Vered</h5>
                   <p class="text-muted mb-2">Full Stack Developer</p>
                 </div>
               </div>
@@ -98,7 +86,7 @@
                   <div class="member-avatar mb-3">
                     <i class="fas fa-user-circle text-success"></i>
                   </div>
-                  <h5 class="text-success">נעם וקנין</h5>
+                  <h5 class="text-success">Noam Vaknin</h5>
                   <p class="text-muted mb-2">Full Stack Developer</p>
                 </div>
               </div>
@@ -111,7 +99,7 @@
           <div class="card-body">
             <h3 class="card-title text-warning mb-3">
               <i class="fas fa-code-branch me-2"></i>
-              עבודות קודמות
+              Previous Projects
             </h3>
             <div class="row">
               <div class="col-md-6 mb-3">
@@ -119,13 +107,13 @@
                   <div class="project-header">
                     <h5 class="text-primary">
                       <i class="fas fa-utensils me-2"></i>
-                      האתר המשפחתי של יובל
+                      Yuval's Family Website
                     </h5>
                   </div>
                   <div class="project-links">
                     <a href="#" class="btn btn-outline-primary btn-sm me-2">
                       <i class="fas fa-eye me-1"></i>
-                      צפה בפרויקט
+                      View Project
                     </a>
                   </div>
                 </div>
@@ -135,13 +123,13 @@
                   <div class="project-header">
                     <h5 class="text-success">
                       <i class="fas fa-server me-2"></i>
-                      האתר המשפחתי של נעם
+                      Noam's Family Website
                     </h5>
                   </div>
                   <div class="project-links">
                     <a href="#" class="btn btn-outline-primary btn-sm me-2">
                       <i class="fas fa-eye me-1"></i>
-                      צפה בפרויקט
+                      View Project
                     </a>
                   </div>
                 </div>
@@ -151,13 +139,13 @@
                   <div class="project-header">
                     <h5 class="text-info">
                       <i class="fab fa-vuejs me-2"></i>
-                      משחק חלליות
+                      Spaceship Game
                     </h5>
                   </div>
                   <div class="project-links">
                     <a href="#" class="btn btn-outline-primary btn-sm me-2">
                       <i class="fas fa-eye me-1"></i>
-                      צפה בפרויקט
+                      View Project
                     </a>
                   </div>
                 </div>
@@ -173,7 +161,7 @@
                   <div class="project-links">
                     <a href="#" class="btn btn-outline-primary btn-sm me-2">
                       <i class="fas fa-eye me-1"></i>
-                      צפה בפרויקט
+                      View Project
                     </a>
                   </div>
                 </div>
@@ -187,7 +175,7 @@
           <div class="card-body">
             <h3 class="card-title text-danger mb-3">
               <i class="fas fa-envelope me-2"></i>
-              צור קשר
+              Contact Us
             </h3>
             <div class="row">
               <div class="col-md-6">
@@ -205,20 +193,20 @@
         <!-- Call to Action -->
         <div class="text-center mb-5">
           <div class="cta-section">
-            <h3 class="mb-3">מוכנים להתחיל?</h3>
-            <p class="mb-4">הצטרפו אלינו והתחילו לגלות מתכונים חדשים עוד היום!</p>
+            <h3 class="mb-3">Ready to get started?</h3>
+            <p class="mb-4">Join us and start discovering new recipes today!</p>
             <div class="d-flex justify-content-center gap-3 flex-wrap">
               <router-link v-if="!store.username" :to="{ name: 'register' }" class="btn btn-primary btn-lg">
                 <i class="fas fa-user-plus me-2"></i>
-                הירשם עכשיו
+                Register Now
               </router-link>
               <router-link :to="{ name: 'search' }" class="btn btn-outline-primary btn-lg">
                 <i class="fas fa-search me-2"></i>
-                חפש מתכונים
+                Search Recipes
               </router-link>
-              <router-link v-if="store.username" :to="{ name: 'createRecipe' }" class="btn btn-success btn-lg">
+              <router-link v-if="store.username" :to="{ name: 'search' }" class="btn btn-success btn-lg">
                 <i class="fas fa-plus-circle me-2"></i>
-                הוסף מתכון
+                Add Recipe
               </router-link>
             </div>
           </div>

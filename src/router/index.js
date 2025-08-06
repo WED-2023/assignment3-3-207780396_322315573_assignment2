@@ -91,13 +91,7 @@ const routes = [
     component: () => import("../pages/ProfilePage.vue"),
     meta: { requiresAuth: true }
   },
-  // New Routes
-  // {
-  //   path: "/create-recipe",
-  //   name: "createRecipe",
-  //   component: () => import("../pages/CreateRecipePage.vue"),
-  //   meta: { requiresAuth: true }
-  // },
+
   {
     path: "/about",
     name: "about",

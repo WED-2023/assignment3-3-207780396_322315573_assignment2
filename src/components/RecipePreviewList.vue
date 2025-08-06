@@ -16,9 +16,8 @@
     <!-- אינדיקטור טעינה -->
     <div v-if="loading" class="text-center">
       <div class="spinner-border" role="status">
-        <span class="sr-only">Loading...</span>
       </div>
-      <p class="mt-2">Loading recipes...</p>
+        <p class="mt-3">Loading recipe...</p>
     </div>
   </div>
 </template>
@@ -188,7 +187,7 @@ export default {
 
 .no-recipes-message {
   color: #666;
-  font-style: italic;
+  font-family: 'Manjari', sans-serif !important;
   margin: 2rem 0;
 }
 

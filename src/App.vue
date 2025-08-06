@@ -356,11 +356,14 @@ export default {
   background-color: white;
   text-align: right;
   direction: rtl;
+  z-index: 9999 !important; /* רק הוסיפי את השורה הזו */
+
 
   &.show {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
+    z-index: 10000 !important;
   }
 
   .dropdown-item {
@@ -392,7 +395,7 @@ export default {
 
 .main-content {
   min-height: calc(100vh - 76px);
-  padding-top: 10px;
+  padding-top: 0px;
   padding-bottom: 10px;
 
   .page-title,

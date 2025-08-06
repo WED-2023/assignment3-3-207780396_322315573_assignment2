@@ -2,37 +2,19 @@
   <div class="container mt-4">
     <h1 class="page-title mb-4">
       <i class="fas fa-heart text-danger me-2"></i>
-      המתכונים המועדפים שלי
+      My Favorites Recipes
     </h1>
 
-    <!-- Loading State -->
-    <div v-if="loading" class="text-center mt-5">
-      <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
-      <p class="mt-2 text-muted">טוען מתכונים מועדפים...</p>
-    </div>
-
-    <!-- Favorites List - show when not loading and have favorites -->
-    <div v-if="!loading && !showEmptyState">
+    <!-- תמיד הצג את RecipePreviewList - בלי תנאים -->
+    <div v-if="!loading">
+      <h2 class="mb-4">Here are all the recipes you saved in your heart (and on the site) ❤️</h2>
       <RecipePreviewList 
-        title="המתכונים שאהבתי"
         recipeType="favorites"
         :numberOfRecipes="20"
         @favorite-updated="handleFavoriteUpdate"
       />
     </div>
 
-    <!-- Empty State - only show when not loading and no recipes -->
-    <div v-if="!loading && showEmptyState" class="empty-state text-center mt-5">
-      <i class="fas fa-heart-broken text-muted" style="font-size: 4rem;"></i>
-      <h3 class="mt-3 text-muted">אין לך מתכונים מועדפים עדיין</h3>
-      <p class="text-muted">חפש מתכונים והוסף אותם למועדפים כדי לראות אותם כאן</p>
-      <router-link :to="{ name: 'search' }" class="btn btn-primary">
-        <i class="fas fa-search me-2"></i>
-        חפש מתכונים
-      </router-link>
-    </div>
   </div>
 </template>
 
@@ -111,16 +93,48 @@ export default {
 
 <style scoped>
 .page-title {
-  color: #2c3e50;
+  color: #7db67d;
   font-weight: 600;
+  font-family: 'DynaPuff', cursive;
+  text-align: center;
+  margin-top: 0rem;
+  margin-bottom: 0rem;
+}
+
+h2.mb-4 {
+  font-family: 'Manjari', sans-serif !important;
+  color: #5a9a5a !important;
+  text-align: center;
+  font-weight: 500;
+  font-size: 1.5rem;
+  margin-bottom: 2rem !important;
 }
 
 .empty-state {
   padding: 3rem 1rem;
 }
 
-.spinner-border {
-  width: 3rem;
-  height: 3rem;
+
+h3.mt-3 {
+  font-family: 'Manjari', sans-serif !important;
+  text-align: center;
+  font-size: 32px !important;
+  font-weight: 500;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem !important;
+}
+
+p.text-muted {
+  font-family: 'Manjari', sans-serif !important;
+  text-align: center;
+  font-size: 22px !important;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.btn-primary {
+  background-color: #a3c7a3;
+  border-color: #a3c7a3;
+  font-family: 'Manjari', sans-serif
 }
 </style>

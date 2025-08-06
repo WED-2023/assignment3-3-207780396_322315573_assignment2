@@ -335,17 +335,19 @@ export default {
 
 <style scoped>
 .search-page {
-  background: #f8f9fa;
   min-height: 100vh;
-  padding: 2rem 0;
+  padding: 0.25rem 0 2rem 0;
+  font-family: 'Manjari', sans-serif;
 }
 
 .page-title {
   text-align: center;
-  color: #333;
+  color: #7db67d;
   font-size: 2.5rem;
   font-weight: 700;
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
+  margin-top: 0rem;
+  font-family: 'DynaPuff', cursive;
 }
 
 .search-form-container {
@@ -354,6 +356,7 @@ export default {
   border-radius: 15px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   margin-bottom: 2rem;
+  font-family: 'Manjari', sans-serif;
 }
 
 .form-group {
@@ -365,6 +368,7 @@ export default {
   color: #333;
   margin-bottom: 0.5rem;
   display: block;
+  font-family: 'Manjari', sans-serif;
 }
 
 .form-control {
@@ -373,12 +377,19 @@ export default {
   padding: 12px 15px;
   font-size: 1rem;
   transition: all 0.3s ease;
+  font-family: 'Manjari', sans-serif;
 }
 
+/* שינוי צבע הfocus מכחול לירוק */
 .form-control:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  border-color: #7db67d; /* שונה מ-#007bff */
+  box-shadow: 0 0 0 0.2rem rgba(125, 182, 125, 0.25); /* שונה מכחול */
   outline: none;
+}
+
+/* עיצוב נוסף ל-select dropdown */
+.form-control:hover {
+  border-color: #a3c7a3;
 }
 
 .search-button-container {
@@ -387,31 +398,50 @@ export default {
   border-top: 1px solid #e9ecef;
 }
 
+/* שינוי צבע כפתור החיפוש */
 .btn-search {
-  background: linear-gradient(45deg, #007bff, #0056b3);
+  background: linear-gradient(45deg, #7db67d, #5a9a5a);
   border: none;
-  padding: 12px 30px;
+  padding: 0;                /* הסרת כל padding */
   font-size: 1.1rem;
   border-radius: 25px;
   font-weight: 600;
   transition: all 0.3s ease;
+  font-family: 'Manjari', sans-serif;
+  margin-right: 15px;
+  
+  /* שימוש ב-flexbox לריכוז מושלם */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;              /* רוחב קבוע */
+  height: 48px;
 }
 
 .btn-search:hover:not(:disabled) {
-  background: linear-gradient(45deg, #0056b3, #004085);
+  background: linear-gradient(45deg, #5a9a5a, #4a8a4a); /* גוון ירוק כהה יותר */
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.3);
+  box-shadow: 0 6px 20px rgba(125, 182, 125, 0.3); /* צל ירוק */
 }
 
 .btn-clear {
   border-radius: 25px;
-  padding: 12px 30px;
+  padding: 0;                /* הסרת כל padding */
   font-size: 1.1rem;
   font-weight: 600;
+  font-family: 'Manjari', sans-serif;
+  
+  /* שימוש ב-flexbox לריכוז מושלם */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;              /* רוחב קבוע */
+  height: 48px;
 }
 
 .search-results {
   margin-top: 2rem;
+  font-family: 'Manjari', sans-serif;
 }
 
 .results-header {
@@ -426,11 +456,13 @@ export default {
 .results-header h3 {
   color: #333;
   margin-bottom: 0.5rem;
+  font-family: 'Manjari', sans-serif;
 }
 
 .results-info {
   color: #666;
   font-size: 0.9rem;
+  font-family: 'Manjari', sans-serif;
 }
 
 .loading-container {
@@ -439,12 +471,13 @@ export default {
   background: white;
   border-radius: 15px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  font-family: 'Manjari', sans-serif;
 }
 
 .spinner-border {
   width: 3rem;
   height: 3rem;
-  color: #007bff;
+  color: #7db67d;
 }
 
 .results-grid {
@@ -460,6 +493,7 @@ export default {
   border-radius: 15px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   text-align: center;
+  font-family: 'Manjari', sans-serif;
 }
 
 .no-results-content {
@@ -474,26 +508,24 @@ export default {
 .no-results-content h4 {
   color: #333;
   margin-bottom: 1rem;
+  font-family: 'Manjari', sans-serif;
 }
 
 .no-results-content ul {
   text-align: left;
   color: #666;
-}
-
-.pagination-container {
-  /* Removed - no longer needed */
+  font-family: 'Manjari', sans-serif;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
   .search-page {
-    padding: 1rem 0;
+    padding: 0.25rem 0 2rem 0;
   }
   
   .page-title {
     font-size: 2rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.5rem;
   }
   
   .search-form-container {

@@ -7,25 +7,14 @@
       </h1>
     </div>
 
-    <!-- Family Recipes Preview List -->
-    <RecipePreviewList 
-      recipeType="familyRecipes"
-      :numberOfRecipes="3"
-      @favorite-updated="handleFavoriteUpdate"
-    />
-
-    <!-- Empty State -->
-    <div v-if="!loading && !hasRecipes" class="empty-state text-center mt-5">
-      <i class="fas fa-family text-muted" style="font-size: 4rem;"></i>
-      <h3 class="mt-3 text-muted">No family recipes</h3>
-    </div>
-
-    <!-- Loading State -->
-    <div v-if="loading" class="text-center mt-5">
-      <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">טוען...</span>
-      </div>
-      <p class="mt-2">Loading</p>
+    <!-- Favorites List - show when not loading and have favorites -->
+    <div>
+      <h2 class="mb-4">A little nostalgia, a lot of love - your family recipes all in one place ❤️</h2>
+      <RecipePreviewList 
+        recipeType="familyRecipes"
+        :numberOfRecipes="3"
+        @favorite-updated="handleFavoriteUpdate"
+      />
     </div>
   </div>
 </template>
@@ -91,17 +80,23 @@ export default {
 }
 
 .page-title {
-  color: #2c3e50;
+  text-align: center;
+  color: #7db67d;
   font-weight: 600;
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
+  font-family: 'DynaPuff', cursive;
+  margin-top: 0rem;
+  margin-bottom: 0rem;
 }
 
-.page-subtitle {
-  color: #6c757d;
-  font-size: 1.1rem;
-  margin: 0;
+h2.mb-4 {
+  font-family: 'Manjari', sans-serif !important;
+  color: #5a9a5a !important;
+  text-align: center;
+  font-weight: 500;
+  font-size: 1.5rem;
+  margin-bottom: 2rem !important;
 }
+
 
 .info-card {
   background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
@@ -132,12 +127,6 @@ export default {
 .container {
   direction: ltr;
   text-align: left;
-}
-
-/* Loading animation */
-.spinner-border {
-  width: 3rem;
-  height: 3rem;
 }
 
 /* Mobile responsiveness */

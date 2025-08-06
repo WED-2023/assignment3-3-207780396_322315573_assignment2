@@ -1,19 +1,19 @@
 <template>
   <div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <h1 class="page-title">
-        <i class="fas fa-book me-2"></i>
-        המתכונים האישיים שלי
-      </h1>
-    </div>
+    <h1 class="page-title mb-4">
+      <i class="fas fa-heart text-danger me-2"></i>
+      My Recipes
+    </h1>
 
     <!-- My Recipes List -->
-    <RecipePreviewList 
-      title="המתכונים שיצרתי"
-      recipeType="myRecipes"
-      :numberOfRecipes="10"
-      @favorite-updated="handleFavoriteUpdate"
-    />
+    <div v-if="!loading && !showEmptyState">
+      <h2 class="mb-4">Everything you've cooked, baked, or just planned - it's all waiting for you here"</h2>
+      <RecipePreviewList 
+        recipeType="myRecipes"
+        :numberOfRecipes="10"
+        @favorite-updated="handleFavoriteUpdate"
+      />
+    </div>
 
     <!-- Create Recipe Modal (placeholder) -->
     <div v-if="showCreateModal" class="modal-overlay" @click="showCreateModal = false">
@@ -77,9 +77,23 @@ export default {
 
 <style scoped>
 .page-title {
-  color: #2c3e50;
+  text-align: center;
+  color: #7db67d;
   font-weight: 600;
+  font-family: 'DynaPuff', cursive;
+  margin-top: 0rem;
+  margin-bottom: 0rem;
 }
+
+h2.mb-4 {
+  font-family: 'Manjari', sans-serif !important;
+  color: #5a9a5a !important;
+  text-align: center;
+  font-weight: 500;
+  font-size: 1.5rem;
+  margin-bottom: 2rem !important;
+}
+
 
 .modal-overlay {
   position: fixed;
