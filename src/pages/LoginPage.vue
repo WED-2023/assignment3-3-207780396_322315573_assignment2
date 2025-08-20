@@ -37,7 +37,7 @@
 
       <div class="mt-2">
         Don't have an account?
-        <router-link to="/register">Register here</router-link>
+        <router-link to="/register" class="register-link">Register here</router-link>
       </div>
     </b-form>
   </div>
@@ -91,9 +91,6 @@ export default {
           
           console.log('Store updated, username:', store.username);
           
-          // Success message
-          alert('התחברות בוצעה בהצלחה!');
-          
           // Redirect to home page
           const router = internalInstance.appContext.config.globalProperties.$router;
           router.push('/');
@@ -103,7 +100,7 @@ export default {
         
         if (err.response && err.response.status === 401) {
           // Handle specific "Username or Password incorrect" error
-          state.submitError = "שם המשתמש או הסיסמה לא נכונים";
+          state.submitError = "Username or Password incorrect. Please try again.";
         } else if (err.response) {
           state.submitError = err.response.data?.message || 'Login failed';
         } else {
@@ -123,25 +120,62 @@ export default {
 </script>
 
 <style scoped>
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400;500;600&family=Manjari:wght@100;400;700&display=swap');
+
 .container {
   background: #f8f9fa;
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  font-family: 'Manjari', sans-serif;
+}
+
+h2 {
+  font-family: 'DynaPuff', cursive;
+  color: #7db67d;
 }
 
 .btn-primary {
-  background: linear-gradient(45deg, #007bff, #0056b3);
+  background-color: #a3c7a3;
+  border-color: #a3c7a3;
+  color: white;
   border: none;
 }
 
 .btn-primary:hover {
-  background: linear-gradient(45deg, #0056b3, #004085);
+  background-color: #8fb98f;
+  border-color: #8fb98f;
+  color: white;
+}
+
+.btn-primary:focus,
+.btn-primary:active {
+  background-color: #7aa87a;
+  border-color: #7aa87a;
+  color: white;
+  box-shadow: 0 0 0 0.2rem rgba(163, 199, 163, 0.5);
+}
+
+.btn-primary:disabled {
+  background-color: #a3c7a3;
+  border-color: #a3c7a3;
+  opacity: 0.65;
 }
 
 .form-control:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  border-color: #7db67d;
+  box-shadow: 0 0 0 0.2rem rgba(125, 182, 125, 0.25);
+}
+
+.register-link {
+  color: #a3c7a3;
+  text-decoration: none;
+}
+
+.register-link:hover {
+  color: #8fb98f;
+  text-decoration: underline;
 }
 
 /* Custom alert styling */
@@ -152,5 +186,13 @@ export default {
   border-radius: 5px;
   font-size: 14px;
   text-align: center;
+}
+
+.container * {
+  font-family: 'Manjari', sans-serif;
+}
+
+.container h2 {
+  font-family: 'DynaPuff', cursive;
 }
 </style>

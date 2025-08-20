@@ -33,7 +33,7 @@
               </router-link>
             </li>
             
-            <!-- Create Recipe Button (Only when logged in) - פותח מודאל -->
+            <!-- Create Recipe Button (Only when logged in) -->
             <li class="nav-item" v-if="store.username">
               <a 
                 class="nav-link"
@@ -149,7 +149,7 @@
 </template>
 
 <script>
-import { getCurrentInstance, ref } from 'vue';
+import { getCurrentInstance, ref, onMounted, onUnmounted } from 'vue';
 import CreateRecipeModal from './components/CreateRecipeModal.vue';
 
 export default {
@@ -166,20 +166,28 @@ export default {
     const isDropdownOpen = ref(false);
     const showCreateModal = ref(false);
 
+    const handleOpenCreateModal = () => {
+      showCreateModal.value = true;
+    };
+
+    onMounted(() => {
+      window.addEventListener('open-create-recipe-modal', handleOpenCreateModal);
+    });
+
+    onUnmounted(() => {
+      window.removeEventListener('open-create-recipe-modal', handleOpenCreateModal);
+    });
+
     const logout = async () => {
       try {
-        // שליחת בקשת logout לשרת
         const axios = internalInstance.appContext.config.globalProperties.axios;
         await axios.post(store.server_domain + '/logout');
       } catch (error) {
         console.error('Logout error:', error);
-        // גם אם יש שגיאה, נבצע logout מקומי
       } finally {
-        // ניקוי המידע המקומי
         store.logout();
         toast("התנתקות", "התנתקת בהצלחה!", "success");
         
-        // הפניה לדף הבית
         router.push("/").catch(() => {});
       }
     };
@@ -196,17 +204,13 @@ export default {
       isDropdownOpen.value = !isDropdownOpen.value;
     };
 
-    // טיפול ביצירת מתכון חדש
     const onRecipeCreated = (newRecipe) => {
       console.log('New recipe created:', newRecipe);
       
-      // הציג הודעת הצלחה נוספת
       toast('מתכון נוצר', 'המתכון נוצר בהצלחה!', 'success');
       
-      // סגור את המודאל
       showCreateModal.value = false;
       
-      // דוגמה: הפניה לדף המתכון החדש
       if (newRecipe.id) {
         router.push(`/recipe/${newRecipe.id}`).catch(() => {});
       }
@@ -220,7 +224,8 @@ export default {
       hideDropdown,
       toggleDropdown,
       showCreateModal,
-      onRecipeCreated
+      onRecipeCreated,
+      handleOpenCreateModal
     };
   }
 }
@@ -255,7 +260,6 @@ export default {
   transition: background-color 0.3s ease;
   font-family: 'DynaPuff', cursive;
 
-
   .navbar-brand {
     font-weight: bold;
     font-size: 1.5rem;
@@ -286,8 +290,8 @@ export default {
     cursor: default;
     
     &:hover {
-      color: var(--primary-color); // שומר על אותו צבע
-      background-color: transparent; // בלי רקע
+      color: var(--primary-color);
+      background-color: transparent;
     }
   }
 
@@ -304,7 +308,6 @@ export default {
   }
 }
 
-// עיצוב מיוחד לקישור logout
 .logout-link {
   color: var(--primary-color) !important;
   font-weight: 600;
@@ -344,26 +347,23 @@ export default {
   }
 }
 
+/* תיקון dropdown - הסרת אנימציות והבטחת z-index גבוה */
 .dropdown-menu {
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.15);
   border: none;
   min-width: 200px;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-10px);
-  transition: all 0.3s ease;
   background-color: white;
   text-align: right;
   direction: rtl;
-  z-index: 9999 !important; /* רק הוסיפי את השורה הזו */
-
+  z-index: 10000 !important;
+  position: absolute !important;
+  display: none;
 
   &.show {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
     z-index: 10000 !important;
+    position: absolute !important;
+    display: block !important;
   }
 
   .dropdown-item {
@@ -382,6 +382,16 @@ export default {
       width: 20px;
     }
   }
+}
+
+/* וידוא שהdropdown והקונטיינר שלו יהיו עם z-index גבוה */
+.nav-item.dropdown {
+  z-index: 10000 !important;
+  position: relative !important;
+}
+
+.navbar {
+  z-index: 10000 !important;
 }
 
 .logout-btn {

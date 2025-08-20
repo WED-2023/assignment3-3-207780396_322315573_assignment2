@@ -13,6 +13,5 @@ module.exports = {
     sourceType: 'module'
   },
   rules: {
-    // אפשר להוסיף חוקים כאן או להשאיר ריק
   }
 }

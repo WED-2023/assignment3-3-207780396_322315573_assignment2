@@ -297,12 +297,10 @@ export default {
     processedInstructionSteps() {
       if (!this.recipe || !this.recipe.instructions) return [];
       
-      // אם יש לנו _instructions מעובדות, השתמש בהן
       if (this.recipe._instructions && this.recipe._instructions.length > 0) {
         return this.recipe._instructions;
       }
       
-      // אחרת עבד את ההוראות הרגילות
       return this.processSimpleInstructions(this.recipe.instructions);
     }
   },
@@ -316,7 +314,6 @@ export default {
         const recipeId = this.$route.params.recipeId;
         console.log('Loading recipe with ID:', recipeId);
 
-        // Determine recipe type based on ID format
         if (typeof recipeId === 'string') {
           if (recipeId.startsWith('u')) {
             this.recipeType = 'user';
@@ -377,7 +374,6 @@ export default {
           _instructions: data.instructions ? this.processSimpleInstructions(data.instructions) : []
         };
         
-        // אם זה מתכון משפחתי ויש לו גלריה, השתמש בה
         if (this.recipeType === 'family' && data.gallery && Array.isArray(data.gallery)) {
           this.familyImages = data.gallery;
           console.log('Family images loaded:', this.familyImages.length);
@@ -429,28 +425,22 @@ export default {
     formatIngredientText(ingredient) {
       let text = '';
       
-      // אם יש כמות (amount) תקינה
       if (ingredient.amount !== null && ingredient.amount !== undefined && ingredient.amount !== '') {
         text += ingredient.amount;
         
-        // אם יש יחידה ושהיא לא "as needed"
         if (ingredient.unit && ingredient.unit !== 'as needed') {
           text += ' ' + ingredient.unit;
         }
         
-        // הוסף את השם
         text += ' ' + ingredient.name;
         
-        // אם היחידה היא "as needed", הוסף אותה בסוף
         if (ingredient.unit === 'as needed') {
           text += ', ' + ingredient.unit;
         }
       } 
-      // אם אין כמות אבל יש יחידה (כמו "as needed")
       else if (ingredient.unit) {
         text = ingredient.unit + ' ' + ingredient.name;
       }
-      // אם יש רק שם
       else {
         text = ingredient.name;
       }
@@ -463,14 +453,12 @@ export default {
       this.currentModalImage = image;
       this.currentImageIndex = index;
       this.showImageModal = true;
-      // מנע גלילה של הגוף כשהמודל פתוח
       document.body.style.overflow = 'hidden';
     },
 
     closeImageModal() {
       this.showImageModal = false;
       this.currentModalImage = null;
-      // החזר גלילה
       document.body.style.overflow = 'auto';
     },
 
@@ -478,7 +466,7 @@ export default {
       if (this.currentImageIndex < this.familyImages.length - 1) {
         this.currentImageIndex++;
       } else {
-        this.currentImageIndex = 0; // חזור להתחלה
+        this.currentImageIndex = 0;
       }
       this.currentModalImage = this.familyImages[this.currentImageIndex];
     },
@@ -487,7 +475,7 @@ export default {
       if (this.currentImageIndex > 0) {
         this.currentImageIndex--;
       } else {
-        this.currentImageIndex = this.familyImages.length - 1; // לך לסוף
+        this.currentImageIndex = this.familyImages.length - 1;
       }
       this.currentModalImage = this.familyImages[this.currentImageIndex];
     },
@@ -572,9 +560,27 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Manjari:wght@100;400;700&display=swap');
+
+* {
+  font-family: 'Manjari', sans-serif !important;
+}
+
+body {
+  background: #f8f9fa !important;
+}
+
+div:not(.recipe-header):not(.ingredients-section):not(.instructions-section):not(.ingredient-item):not(.instruction-step):not(.instructions-text):not(.ingredients-text):not(.family-info):not(.btn):not(.badge):not(.alert) {
+  background: transparent !important;
+}
+
 .recipe-view-container {
   min-height: 100vh;
   background: #f8f9fa;
+}
+
+.recipe-content {
+  background: transparent;
 }
 
 .loading-container, .error-container {
@@ -895,8 +901,20 @@ export default {
 
 /* Recipe Body */
 .recipe-body {
-  background: white;
+  background: transparent !important;
   padding: 3rem 0;
+}
+
+.recipe-body .container {
+  background: transparent !important;
+}
+
+.recipe-body .row {
+  background: transparent !important;
+}
+
+.recipe-body .col-md-6 {
+  background: transparent !important;
 }
 
 .section-title {
@@ -932,7 +950,7 @@ export default {
   padding: 1rem;
   margin-bottom: 0.5rem;
   border-radius: 8px;
-  border-left: 4px solid #28a745;
+  border-left: 4px solid #a3c7a3;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   transition: transform 0.2s ease;
 }
@@ -950,7 +968,7 @@ export default {
   padding: 1.5rem;
   margin-bottom: 1rem;
   border-radius: 8px;
-  border-left: 4px solid #6abd8f;
+  border-left: 4px solid #a3c7a3;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   line-height: 1.6;
   counter-increment: step-counter;
@@ -963,7 +981,7 @@ export default {
 
 .instruction-step::before {
   content: counter(step-counter);
-  background: #60af8e;
+  background: #a3c7a3;
   color: white;
   width: 30px;
   height: 30px;
@@ -1061,12 +1079,12 @@ export default {
   
   .instruction-step {
     border-left: none;
-    border-top: 4px solid #94e6ca;
+    border-top: 4px solid #a3c7a3;
   }
   
   .ingredient-item {
     border-left: none;
-    border-top: 4px solid #28a745;
+    border-top: 4px solid #a3c7a3;
   }
 
   .btn-favorite {
@@ -1090,5 +1108,4 @@ export default {
     padding: 2rem 0;
   }
 }
-
 </style>

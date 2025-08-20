@@ -5,7 +5,6 @@
       My Favorites Recipes
     </h1>
 
-    <!-- תמיד הצג את RecipePreviewList - בלי תנאים -->
     <div v-if="!loading">
       <h2 class="mb-4">Here are all the recipes you saved in your heart (and on the site) ❤️</h2>
       <RecipePreviewList 
@@ -58,7 +57,6 @@ export default {
         console.log('Favorites response:', response.data);
         console.log('Favorites length:', response.data ? response.data.length : 0);
         
-        // בדוק אם יש מתכונים מועדפים
         const favorites = Array.isArray(response.data) ? response.data : [];
         
         if (favorites.length === 0) {
@@ -82,7 +80,6 @@ export default {
 
     handleFavoriteUpdate(recipeId, isFavorite) {
       console.log(`Recipe ${recipeId} favorite status: ${isFavorite}`);
-      // אם מתכון הוסר מהמועדפים, בדוק שוב אם יש מועדפים
       if (!isFavorite) {
         this.checkFavorites();
       }

@@ -14,24 +14,6 @@
         @favorite-updated="handleFavoriteUpdate"
       />
     </div>
-
-    <!-- Create Recipe Modal (placeholder) -->
-    <div v-if="showCreateModal" class="modal-overlay" @click="showCreateModal = false">
-      <div class="modal-content" @click.stop>
-        <div class="modal-header">
-          <h3>יצירת מתכון חדש</h3>
-          <button @click="showCreateModal = false" class="btn-close">&times;</button>
-        </div>
-        <div class="modal-body">
-          <p>כאן יהיה הטופס ליצירת מתכון חדש</p>
-          <p>(נכין את זה בשלב הבא)</p>
-        </div>
-        <div class="modal-footer">
-          <button @click="showCreateModal = false" class="btn btn-secondary">ביטול</button>
-          <button @click="createRecipe" class="btn btn-primary">שמור מתכון</button>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -65,11 +47,6 @@ export default {
     handleFavoriteUpdate(recipeId, isFavorite) {
       console.log(`Recipe ${recipeId} favorite status: ${isFavorite}`);
       // Handle favorite update if needed
-    },
-    createRecipe() {
-      // Placeholder for recipe creation
-      alert('יצירת מתכון - בקרוב!');
-      this.showCreateModal = false;
     }
   }
 };

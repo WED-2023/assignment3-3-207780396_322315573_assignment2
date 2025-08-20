@@ -98,7 +98,6 @@ export default {
     };
   },
   watch: {
-    // עדכון הסטטוס אם ה-prop משתנה
     'recipe.favorite'(newVal) {
       this.isFavorite = newVal;
     }
@@ -120,10 +119,6 @@ export default {
       this.isToggling = true;
 
       try {
-        if (this.isFavorite) {
-          // כרגע אין API להסרת מועדפים, אז רק נראה הודעה
-          alert('Remove from favorites not implemented yet');
-        } else {
           // הוספה למועדפים
           const response = await this.axios.post('/users/favorites', {
             recipeId: this.recipe.id
@@ -137,7 +132,6 @@ export default {
             // שלח event להורה שהמתכון נוסף למועדפים
             this.$emit('favorite-updated', this.recipe.id, true);
           }
-        }
       } catch (error) {
         console.error('Error toggling favorite:', error);
         
@@ -160,7 +154,6 @@ export default {
 </script>
 
 <style scoped>
-/* הוספת פונט לכל האלמנטים */
 .recipe-card {
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   cursor: pointer;
@@ -284,7 +277,6 @@ export default {
   font-family: 'Manjari', sans-serif;
 }
 
-/* כפתור View - רקע ירוק בהיר עם כתב לבן */
 .action-buttons .btn-primary {
   background-color: #a3c7a3;
   border-color: #a3c7a3;
@@ -305,7 +297,6 @@ export default {
   box-shadow: 0 0 0 0.2rem rgba(163, 199, 163, 0.25);
 }
 
-/* כפתור Favorite - לא פעיל (מצב רגיל) */
 .action-buttons .btn-outline-danger {
   background-color: transparent;
   border-color: #dc3545;
@@ -320,16 +311,15 @@ export default {
   box-shadow: 0 0 8px rgba(220, 53, 69, 0.3);
 }
 
-/* כפתור Favorite - פעיל (אחרי לחיצה) */
 .action-buttons .btn-danger {
-  background-color: #ff6b6b; /* אדום בהיר ונעים */
+  background-color: #ff6b6b;
   border-color: #ff6b6b;
   color: white;
   transition: all 0.3s ease;
 }
 
 .action-buttons .btn-danger:hover {
-  background-color: #ff5252; /* אדום קצת יותר כהה בhover */
+  background-color: #ff5252;
   border-color: #ff5252;
   color: white;
   box-shadow: 0 0 8px rgba(255, 107, 107, 0.4);

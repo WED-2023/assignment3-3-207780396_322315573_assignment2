@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-4" style="max-width: 500px;">
-    <h2 class="mb-4">Register</h2>
+    <h2 class="mb-4 page-title">Register</h2>
     <b-form @submit.prevent="register">
       <!-- Username -->
       <b-form-group label="Username" label-for="username">
@@ -124,7 +124,7 @@
           </div>
         </b-form-invalid-feedback>
         <!-- Debug info -->
-        <small class="text-muted" v-if="state.password && state.confirmedPassword">
+        <small class="text-muted debug-text" v-if="state.password && state.confirmedPassword">
           Match: {{ state.password === state.confirmedPassword ? '✅' : '❌' }}
         </small>
       </b-form-group>
@@ -132,7 +132,7 @@
       <b-button 
         type="submit" 
         variant="success" 
-        class="w-100"
+        class="w-100 register-btn"
         @click="register"
         :disabled="state.isLoading"
       >
@@ -161,9 +161,9 @@
         {{ state.successMessage }}
       </b-alert>
 
-      <div class="mt-2">
+      <div class="mt-2 login-link-text">
         Already have an account?
-        <router-link to="/login">Login here</router-link>
+        <router-link to="/login" class="login-link">Login here</router-link>
       </div>
     </b-form>
   </div>
@@ -419,29 +419,152 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400;500;600;700&family=Manjari:wght@100;400;700&display=swap');
+
+.page-title {
+  font-family: 'DynaPuff', cursive !important;
+  color: #7db67d !important;
+  text-align: center;
+}
+
+body,
+label,
+.form-label,
+input,
+select,
+option,
+textarea,
+.form-control,
+.form-select,
+.invalid-feedback,
+.debug-text,
+.login-link-text,
+.alert,
+small {
+  font-family: 'Manjari', sans-serif !important;
+  color: #666 !important;
+}
+
+.register-btn:hover {
+  background-color: #7db67d !important;
+  border-color: #7db67d !important;
+  color: white !important;
+}
+
+.register-btn:focus,
+.register-btn:active {
+  background-color: #7db67d !important;
+  border-color: #7db67d !important;
+  color: white !important;
+  box-shadow: 0 0 0 0.2rem rgba(163, 199, 163, 0.25) !important;
+}
+
+.login-link {
+  color: #a3c7a3 !important;
+  text-decoration: none;
+  font-family: 'Manjari', sans-serif !important;
+}
+
+.login-link:hover {
+  color: #7db67d !important;
+  text-decoration: underline;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #a3c7a3 !important;
+  box-shadow: 0 0 0 0.2rem rgba(163, 199, 163, 0.25) !important;
+  background-color: rgba(163, 199, 163, 0.05) !important;
+}
+
+.form-control,
+.form-select {
+  font-family: 'Manjari', sans-serif !important;
+  color: #666 !important;
+}
+
 .container {
   background: #f8f9fa;
-  padding: 2rem;
+  padding: 2.5rem;
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  min-height: 750px;
 }
 
-.btn-success {
-  background: linear-gradient(45deg, #28a745, #20c997);
-  border: none;
+.form-group,
+.mb-3,
+.mb-4,
+b-form-group:last-of-type {
+  margin-bottom: 2rem !important;
+  position: relative;
+  height: auto;
+  padding-bottom: 0;
 }
 
-.btn-success:hover {
-  background: linear-gradient(45deg, #218838, #1ea080);
+b-form-group:last-of-type {
+  margin-bottom: 2rem !important;
 }
 
-.form-control:focus {
-  border-color: #28a745;
-  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+.register-btn {
+  margin-top: 0 !important;
+  margin-bottom: 0.25rem !important;
+  background-color: #a3c7a3 !important;
+  border-color: #a3c7a3 !important;
+  color: white !important;
+  font-family: 'Manjari', sans-serif !important;
+  font-weight: 600;
+}
+
+.invalid-feedback {
+  font-family: 'Manjari', sans-serif !important;
+  color: #dc3545 !important;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 0.25rem;
+  z-index: 1;
+}
+
+.debug-text {
+  font-family: 'Manjari', sans-serif !important;
+  color: #666 !important;
+  position: absolute !important;
+  top: 100% !important;
+  left: 0;
+  right: 0;
+  margin-top: 0.5rem !important; 
+  z-index: 1;
+}
+
+.form-group {
+  position: relative;
 }
 
 /* Style for server-side error feedback */
 .invalid-feedback[state="false"] {
   display: block;
+  font-family: 'Manjari', sans-serif !important;
+  color: #dc3545 !important;
+}
+
+.alert {
+  font-family: 'Manjari', sans-serif !important;
+}
+
+.invalid-feedback {
+  font-family: 'Manjari', sans-serif !important;
+  color: #dc3545 !important;
+}
+
+.debug-text {
+  font-family: 'Manjari', sans-serif !important;
+  color: #666 !important;
+}
+
+.login-link-text {
+  font-family: 'Manjari', sans-serif !important;
+  color: #666 !important;
+  text-align: center;
 }
 </style>

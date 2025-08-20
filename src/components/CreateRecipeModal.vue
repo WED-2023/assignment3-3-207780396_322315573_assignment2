@@ -6,6 +6,7 @@
     scrollable
     hide-footer
     @hide="resetForm"
+    @show="resetForm"
   >
     <!-- Custom Header -->
     <template #modal-header="{ close }">
@@ -293,6 +294,14 @@ export default {
       );
     }
   },
+  watch: {
+    // ניקוי גם כש-modelValue משתנה ל-true (נפתח)
+    modelValue(newValue) {
+      if (newValue) {
+        this.resetForm();
+      }
+    }
+  },
   methods: {
     addIngredient() {
       this.recipeForm.ingredients.push({
@@ -393,9 +402,6 @@ export default {
 
         console.log('Recipe created successfully:', response.data);
 
-        // // Show success message
-        // this.toast('Success', 'Recipe created successfully!', 'success');
-
         // Emit event to parent
         this.$emit('recipe-created', {
           ...recipeData,
@@ -446,6 +452,9 @@ export default {
         ],
         instructions: ''
       };
+      
+      // ניקוי מצב היצירה
+      this.creating = false;
     }
   }
 };
@@ -488,7 +497,6 @@ export default {
   flex-wrap: wrap;
 }
 
-/* עיצוב הצ'קבוקסים - תיקון */
 .dietary-options input[type="checkbox"] {
   accent-color: #a3c7a3 !important;
   width: 18px;
@@ -536,7 +544,6 @@ export default {
   border: 2px dashed #dee2e6;
 }
 
-/* עדכון עיצוב ה-ingredient-item */
 .ingredient-item {
   background: white;
   padding: 0.75rem;
@@ -550,7 +557,6 @@ export default {
   position: relative;
 }
 
-/* כפתור מחיקת מרכיב */
 .ingredient-item .btn-remove,
 .ingredient-item .btn-outline-danger,
 .ingredient-item .btn-danger.btn-sm,
@@ -576,22 +582,18 @@ export default {
   font-family: 'Arial', sans-serif !important;
   line-height: 1 !important;
   cursor: pointer !important;
-  /* הסרתי את text-indent */
 }
 
-/* הוספת X ישירות לתוכן הכפתור */
 .ingredient-item .btn-remove,
 .ingredient-item .btn-outline-danger,
 .ingredient-item .btn-danger.btn-sm,
 .ingredient-item button[class*="remove"],
 .ingredient-item button[class*="delete"],
 .ingredient-item .btn-sm {
-  /* הוספת ה-X ישירות */
   text-align: center !important;
   vertical-align: middle !important;
 }
 
-/* אם הכפתור ריק, נוסיף X עם ::before */
 .ingredient-item .btn-remove:empty::before,
 .ingredient-item .btn-outline-danger:empty::before,
 .ingredient-item .btn-danger.btn-sm:empty::before,
@@ -604,14 +606,13 @@ export default {
   color: inherit !important;
 }
 
-/* אם הכפתור לא ריק, נחליף את התוכן */
 .ingredient-item .btn-remove:not(:empty),
 .ingredient-item .btn-outline-danger:not(:empty),
 .ingredient-item .btn-danger.btn-sm:not(:empty),
 .ingredient-item button[class*="remove"]:not(:empty),
 .ingredient-item button[class*="delete"]:not(:empty),
 .ingredient-item .btn-sm:not(:empty) {
-  font-size: 0 !important; /* מסתיר טקסט קיים */
+  font-size: 0 !important;
 }
 
 .ingredient-item .btn-remove:not(:empty)::before,
@@ -630,7 +631,6 @@ export default {
   transform: translate(-50%, -50%) !important;
 }
 
-/* אפקט hover */
 .ingredient-item .btn-remove:hover,
 .ingredient-item .btn-outline-danger:hover,
 .ingredient-item .btn-danger.btn-sm:hover,
@@ -653,7 +653,6 @@ export default {
   color: white !important;
 }
 
-/* עדכון עיצוב ה-ingredient-item כדי למקם הכל טוב */
 .ingredient-item {
   background: white;
   padding: 0.75rem;
@@ -665,10 +664,10 @@ export default {
   gap: 0.5rem;
   margin-bottom: 0.5rem;
   position: relative;
-  padding-right: 35px !important;   /* הוספת מקום לכפתור */
+  padding-right: 35px !important;
 }
 
-/* כפתור Add Ingredient - תיקון */
+
 .btn-outline-primary,
 .btn[class*="outline"]:not(.btn-outline-danger) {
   color: #a3c7a3 !important;
@@ -693,7 +692,6 @@ export default {
   box-shadow: 0 0 0 0.2rem rgba(163, 199, 163, 0.25) !important;
 }
 
-/* כפתור Create Recipe - תיקון */
 .modal-footer .btn-success,
 .btn-success,
 button[type="submit"],
@@ -725,12 +723,10 @@ button[type="submit"]:hover,
   box-shadow: 0 0 0 0.2rem rgba(163, 199, 163, 0.25) !important;
 }
 
-/* כפתור Cancel */
 .btn-secondary {
   font-family: 'Manjari', sans-serif !important;
 }
 
-/* עיצוב כל הטקסט הרגיל */
 .recipe-form,
 .recipe-form label,
 .recipe-form input,
@@ -744,7 +740,6 @@ select {
   font-family: 'Manjari', sans-serif !important;
 }
 
-/* עיצוב לכל שדות הקלט כשהם בפוקוס */
 .recipe-form input:focus,
 .recipe-form textarea:focus,
 .recipe-form select:focus,
@@ -786,7 +781,6 @@ select:focus {
   margin-top: 1rem;
 }
 
-/* כותרות משניות */
 h4, h5, h6 {
   font-family: 'Manjari', sans-serif !important;
   color: #333;

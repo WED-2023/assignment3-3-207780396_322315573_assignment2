@@ -31,13 +31,12 @@ export default {
   components: {
     RecipePreview,
   },
-  emits: ['recipes-loaded', 'loading-changed'], // הוספת emits
+  emits: ['recipes-loaded', 'loading-changed'],
   props: {
     title: {
       type: String,
       required: true,
     },
-    // הוספת prop אופציונלי לסוג המתכונים
     recipeType: {
       type: String,
       default: 'random', // 'random', 'favorites', 'lastViewed', 'myRecipes', 'familyRecipes'
@@ -47,7 +46,6 @@ export default {
       type: Number,
       default: 3
     },
-    // האם הקומפוננט מושבת (לאורחים)
     disabled: {
       type: Boolean,
       default: false
@@ -75,21 +73,19 @@ export default {
     async updateRecipes() {
       console.log('updateRecipes called for:', this.recipeType);
       
-      // אם הקומפוננט מושבת ומדובר במתכונים שצריכים התחברות, לא נטען כלום
       if (this.disabled && this.requiresLogin()) {
         console.log('Component disabled for', this.recipeType);
         return;
       }
 
       this.loading = true;
-      this.$emit('loading-changed', true); // הודע לparent שהטעינה התחילה
+      this.$emit('loading-changed', true);
       console.log('Started loading for:', this.recipeType);
       
       try {
         let endpoint = '';
         let params = {};
         
-        // בחירת endpoint לפי סוג המתכונים
         switch (this.recipeType) {
           case 'favorites':
             endpoint = '/users/favorites';
@@ -107,7 +103,6 @@ export default {
           default:
             endpoint = '/recipes';
             params.number = this.numberOfRecipes;
-            // Add timestamp to prevent caching for random recipes
             params.timestamp = new Date().getTime();
             break;
         }
@@ -118,7 +113,6 @@ export default {
         
         console.log('Recipe response:', response.data);
         
-        // התאמת המבנה לפי סוג התגובה
         if (Array.isArray(response.data)) {
           this.recipes = response.data;
         } else if (response.data.recipes && Array.isArray(response.data.recipes)) {
@@ -127,20 +121,17 @@ export default {
           this.recipes = [];
         }
         
-        // הגבלת מספר המתכונים לפי הפרופ
         if (this.recipes.length > this.numberOfRecipes) {
           this.recipes = this.recipes.slice(0, this.numberOfRecipes);
         }
         
         console.log(`Loaded ${this.recipes.length} recipes`);
         
-        // הודע לparent על המתכונים שנטענו
         this.$emit('recipes-loaded', this.recipes);
         
       } catch (error) {
         console.log('Error fetching recipes:', error);
         
-        // אם זה שגיאת אימות למתכונים שדורשים התחברות, לא נציג שגיאה
         if (error.response && error.response.status === 401 && this.requiresLogin()) {
           this.recipes = [];
         } else {
@@ -148,12 +139,11 @@ export default {
           console.error('Failed to load recipes:', error);
         }
         
-        // הודע לparent על המתכונים שנטענו (ריק במקרה של שגיאה)
         this.$emit('recipes-loaded', this.recipes);
         
       } finally {
         this.loading = false;
-        this.$emit('loading-changed', false); // הודע לparent שהטעינה הסתיימה
+        this.$emit('loading-changed', false);
       }
     },
     
@@ -228,7 +218,6 @@ export default {
   }
 }
 
-/* אפקטים חזותיים */
 h3 {
   color: #333;
   margin-bottom: 1.5rem;

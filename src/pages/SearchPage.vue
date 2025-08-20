@@ -150,9 +150,6 @@
             </ul>
           </div>
         </div>
-
-        <!-- Pagination - REMOVED -->
-        <!-- Users will see exactly the number of recipes they requested -->
       </div>
     </div>
   </div>
@@ -211,7 +208,6 @@ export default {
     };
   },
   computed: {
-    // Removed pagination computed properties since we don't need them
   },
   async created() {
     // Load search options from server if available
@@ -380,14 +376,12 @@ export default {
   font-family: 'Manjari', sans-serif;
 }
 
-/* שינוי צבע הfocus מכחול לירוק */
 .form-control:focus {
-  border-color: #7db67d; /* שונה מ-#007bff */
-  box-shadow: 0 0 0 0.2rem rgba(125, 182, 125, 0.25); /* שונה מכחול */
+  border-color: #7db67d;
+  box-shadow: 0 0 0 0.2rem rgba(125, 182, 125, 0.25);
   outline: none;
 }
 
-/* עיצוב נוסף ל-select dropdown */
 .form-control:hover {
   border-color: #a3c7a3;
 }
@@ -398,11 +392,10 @@ export default {
   border-top: 1px solid #e9ecef;
 }
 
-/* שינוי צבע כפתור החיפוש */
 .btn-search {
   background: linear-gradient(45deg, #7db67d, #5a9a5a);
   border: none;
-  padding: 0;                /* הסרת כל padding */
+  padding: 0;
   font-size: 1.1rem;
   border-radius: 25px;
   font-weight: 600;
@@ -410,32 +403,30 @@ export default {
   font-family: 'Manjari', sans-serif;
   margin-right: 15px;
   
-  /* שימוש ב-flexbox לריכוז מושלם */
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 200px;              /* רוחב קבוע */
+  width: 200px;
   height: 48px;
 }
 
 .btn-search:hover:not(:disabled) {
-  background: linear-gradient(45deg, #5a9a5a, #4a8a4a); /* גוון ירוק כהה יותר */
+  background: linear-gradient(45deg, #5a9a5a, #4a8a4a);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(125, 182, 125, 0.3); /* צל ירוק */
+  box-shadow: 0 6px 20px rgba(125, 182, 125, 0.3);
 }
 
 .btn-clear {
   border-radius: 25px;
-  padding: 0;                /* הסרת כל padding */
+  padding: 0;
   font-size: 1.1rem;
   font-weight: 600;
   font-family: 'Manjari', sans-serif;
   
-  /* שימוש ב-flexbox לריכוז מושלם */
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 120px;              /* רוחב קבוע */
+  width: 120px;
   height: 48px;
 }
 
